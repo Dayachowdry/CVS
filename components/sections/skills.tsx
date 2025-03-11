@@ -9,7 +9,7 @@ const fadeIn = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6 }
+    transition: { duration: 0.6, ease: "easeOut" }
   }
 };
 
@@ -21,6 +21,38 @@ const staggerContainer = {
       staggerChildren: 0.1
     }
   }
+};
+
+const tabHoverEffect = {
+  scale: 1.05,
+  backgroundColor: "rgba(59, 130, 246, 0.1)",
+  transition: { duration: 0.2 }
+};
+
+const cardAnimation = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { 
+      type: "spring",
+      stiffness: 300,
+      damping: 20,
+      duration: 0.5
+    }
+  }
+};
+
+const skillBarAnimation = {
+  hidden: { width: 0 },
+  visible: (level: number) => ({
+    width: `${level}%`,
+    transition: { 
+      duration: 1.2,
+      ease: "easeOut",
+      delay: 0.2
+    }
+  })
 };
 
 const skillCategories = [
@@ -174,46 +206,62 @@ export function SkillsSection() {
             <div className="overflow-x-auto pb-2 -mx-4 px-4">
               <TabsList className="w-max flex mb-8 mx-auto">
                 {skillCategories.map((category) => (
-                  <TabsTrigger key={category.id} value={category.id} className="px-4 py-2 whitespace-nowrap">
-                    {category.name}
-                  </TabsTrigger>
+                  <motion.div
+                    key={category.id}
+                    whileHover={tabHoverEffect}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <TabsTrigger value={category.id} className="px-4 py-2 whitespace-nowrap">
+                      {category.name}
+                    </TabsTrigger>
+                  </motion.div>
                 ))}
               </TabsList>
             </div>
             
             {skillCategories.map((category) => (
               <TabsContent key={category.id} value={category.id}>
-                <Card>
-                  <CardContent className="p-6">
-                    <motion.div
-                      variants={staggerContainer}
-                      initial="hidden"
-                      animate="visible"
-                      className="grid grid-cols-1 md:grid-cols-2 gap-8"
-                    >
-                      {category.skills.map((skill, index) => (
-                        <motion.div key={index} variants={fadeIn}>
-                          <div className="mb-2 flex justify-between">
-                            <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
-                              {skill.name}
-                            </span>
-                            <span className="text-xs text-neutral-500 dark:text-neutral-400">
-                              {skill.level}%
-                            </span>
-                          </div>
-                          <div className="h-2 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
-                            <motion.div
-                              className="h-full bg-blue-500 rounded-full"
-                              initial={{ width: 0 }}
-                              animate={{ width: `${skill.level}%` }}
-                              transition={{ duration: 1, delay: index * 0.05 }}
-                            />
-                          </div>
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                  </CardContent>
-                </Card>
+                <motion.div
+                  variants={cardAnimation}
+                  initial="hidden"
+                  animate="visible"
+                >
+                  <Card className="overflow-hidden border border-transparent hover:border-blue-200 dark:hover:border-blue-800 transition-all duration-300">
+                    <CardContent className="p-6">
+                      <motion.div
+                        variants={staggerContainer}
+                        initial="hidden"
+                        animate="visible"
+                        className="grid grid-cols-1 md:grid-cols-2 gap-8"
+                      >
+                        {category.skills.map((skill, index) => (
+                          <motion.div 
+                            key={index} 
+                            variants={fadeIn}
+                            whileHover={{ y: -5 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <div className="mb-2 flex justify-between">
+                              <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                                {skill.name}
+                              </span>
+                              <span className="text-xs text-neutral-500 dark:text-neutral-400">
+                                {skill.level}%
+                              </span>
+                            </div>
+                            <div className="h-2 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
+                              <motion.div
+                                className="h-full bg-blue-500 rounded-full"
+                                custom={skill.level}
+                                variants={skillBarAnimation}
+                              />
+                            </div>
+                          </motion.div>
+                        ))}
+                      </motion.div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
               </TabsContent>
             ))}
           </Tabs>
@@ -239,6 +287,11 @@ export function SkillsSection() {
               <motion.div
                 key={index}
                 variants={fadeIn}
+                whileHover={{ 
+                  scale: 1.1, 
+                  boxShadow: "0 10px 25px rgba(0, 0, 0, 0.1)",
+                  backgroundColor: "rgba(59, 130, 246, 0.1)" 
+                }}
                 className="bg-white dark:bg-neutral-800 px-6 py-3 rounded-full shadow-sm border border-neutral-200 dark:border-neutral-700"
               >
                 <span className="font-medium text-neutral-900 dark:text-neutral-100">

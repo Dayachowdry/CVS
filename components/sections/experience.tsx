@@ -9,7 +9,7 @@ const fadeIn = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6 }
+    transition: { duration: 0.6, ease: "easeOut" }
   }
 };
 
@@ -20,6 +20,32 @@ const staggerContainer = {
     transition: {
       staggerChildren: 0.2
     }
+  }
+};
+
+const slideIn = {
+  hidden: (direction: "left" | "right") => ({
+    x: direction === "left" ? -50 : 50,
+    opacity: 0
+  }),
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 15,
+      duration: 0.8
+    }
+  }
+};
+
+const pulseAnimation = {
+  scale: [1, 1.05, 1],
+  transition: {
+    duration: 2,
+    repeat: Infinity,
+    repeatType: "reverse" as const
   }
 };
 
@@ -133,13 +159,22 @@ export function ExperienceSection() {
               }`}
             >
               {/* Timeline dot */}
-              <div className={`absolute top-6 left-0 md:left-auto ${
-                index % 2 === 0 ? 'md:-right-6' : 'md:-left-6'
-              } w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center z-10`}>
+              <motion.div 
+                className={`absolute top-6 left-0 md:left-auto ${
+                  index % 2 === 0 ? 'md:-right-6' : 'md:-left-6'
+                } w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center z-10`}
+                animate={pulseAnimation}
+              >
                 <Briefcase className="text-white h-6 w-6" />
-              </div>
+              </motion.div>
 
-              <Card className="relative z-0">
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                custom={index % 2 === 0 ? "left" : "right"}
+                variants={slideIn}
+              >
+                <Card className="relative z-0 border border-transparent hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300">
                 <CardContent className="p-6">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                     <div>
@@ -166,7 +201,8 @@ export function ExperienceSection() {
                     <strong>Environment:</strong> {exp.technologies}
                   </div>
                 </CardContent>
-              </Card>
+                </Card>
+              </motion.div>
             </motion.div>
           ))}
         </motion.div>

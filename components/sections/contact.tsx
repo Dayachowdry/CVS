@@ -11,7 +11,7 @@ const fadeIn = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6 }
+    transition: { duration: 0.6, ease: "easeOut" }
   }
 };
 
@@ -23,6 +23,25 @@ const staggerContainer = {
       staggerChildren: 0.2
     }
   }
+};
+
+const cardHoverEffect = {
+  scale: 1.03,
+  boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
+  transition: { duration: 0.3, ease: "easeOut" }
+};
+
+const formItemAnimation = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (custom: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { 
+      duration: 0.5,
+      delay: 0.1 * custom,
+      ease: "easeOut"
+    }
+  })
 };
 
 export function ContactSection() {
@@ -101,56 +120,62 @@ export function ContactSection() {
 
             <motion.div variants={staggerContainer} className="space-y-4">
               <motion.div variants={fadeIn}>
-                <Card>
+                <motion.div whileHover={cardHoverEffect}>
+                  <Card className="border border-transparent hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300">
                   <CardContent className="p-4 flex flex-col sm:flex-row items-start sm:items-center">
                     <Mail className="h-5 w-5 text-blue-500 mr-4" />
                     <div className="mt-1 sm:mt-0">
                       <p className="text-sm text-neutral-500 dark:text-neutral-400">Email</p>
                       <a 
-                        href="mailto:Dayachowdry@gmail.com" 
+                        href="mailto:dayanandathaloori@gmail.com" 
                         className="text-neutral-900 dark:text-neutral-50 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
                       >
-                        Dayachowdry@gmail.com
+                        dayanandathaloori@gmail.com
                       </a>
                     </div>
                   </CardContent>
-                </Card>
+                  </Card>
+                </motion.div>
               </motion.div>
 
               <motion.div variants={fadeIn}>
-                <Card>
+                <motion.div whileHover={cardHoverEffect}>
+                  <Card className="border border-transparent hover:border-green-300 dark:hover:border-green-700 transition-all duration-300">
                   <CardContent className="p-4 flex flex-col sm:flex-row items-start sm:items-center">
                     <Phone className="h-5 w-5 text-green-500 mr-4 mb-1 sm:mb-0" />
                     <div className="mt-1 sm:mt-0">
                       <p className="text-sm text-neutral-500 dark:text-neutral-400">Phone</p>
                       <a 
-                        href="tel:+17746417465" 
+                        href="tel:+12532007252" 
                         className="text-neutral-900 dark:text-neutral-50 hover:text-green-500 dark:hover:text-green-400 transition-colors"
                       >
-                        +1 774 641 7465
+                        +1 253 200 7252
                       </a>
                     </div>
                   </CardContent>
-                </Card>
+                  </Card>
+                </motion.div>
               </motion.div>
 
               <motion.div variants={fadeIn}>
-                <Card>
+                <motion.div whileHover={cardHoverEffect}>
+                  <Card className="border border-transparent hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300">
                   <CardContent className="p-4 flex flex-col sm:flex-row items-start sm:items-center">
                     <Linkedin className="h-5 w-5 text-blue-600 mr-4 mb-1 sm:mb-0" />
                     <div className="mt-1 sm:mt-0">
                       <p className="text-sm text-neutral-500 dark:text-neutral-400">LinkedIn</p>
                       <a 
-                        href="https://linkedin.com/in/daya-nanda-56a9519b" 
+                        href="https://www.linkedin.com/in/thalooridayananda/" 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="text-neutral-900 dark:text-neutral-50 hover:text-blue-600 dark:hover:text-blue-400 transition-colors break-all"
                       >
-                        linkedin.com/in/daya-nanda
+                        linkedin.com/in/thalooridayananda
                       </a>
                     </div>
                   </CardContent>
-                </Card>
+                  </Card>
+                </motion.div>
               </motion.div>
             </motion.div>
           </motion.div>
@@ -161,7 +186,11 @@ export function ContactSection() {
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeIn}
           >
-            <Card>
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Card className="border border-transparent hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300">
               <CardContent className="p-6">
                 {isSubmitted ? (
                   <div className="text-center py-8">
@@ -189,7 +218,7 @@ export function ContactSection() {
                       Send a Message
                     </h3>
                     <div className="space-y-4">
-                      <div>
+                      <motion.div custom={1} variants={formItemAnimation}>
                         <label htmlFor="name" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
                           Name
                         </label>
@@ -202,8 +231,8 @@ export function ContactSection() {
                           required
                           className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-700 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-neutral-800 dark:text-neutral-100"
                         />
-                      </div>
-                      <div>
+                      </motion.div>
+                      <motion.div custom={2} variants={formItemAnimation}>
                         <label htmlFor="email" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
                           Email
                         </label>
@@ -216,8 +245,8 @@ export function ContactSection() {
                           required
                           className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-700 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-neutral-800 dark:text-neutral-100"
                         />
-                      </div>
-                      <div>
+                      </motion.div>
+                      <motion.div custom={3} variants={formItemAnimation}>
                         <label htmlFor="subject" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
                           Subject
                         </label>
@@ -230,8 +259,8 @@ export function ContactSection() {
                           required
                           className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-700 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-neutral-800 dark:text-neutral-100"
                         />
-                      </div>
-                      <div>
+                      </motion.div>
+                      <motion.div custom={4} variants={formItemAnimation}>
                         <label htmlFor="message" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
                           Message
                         </label>
@@ -244,19 +273,25 @@ export function ContactSection() {
                           required
                           className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-700 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-neutral-800 dark:text-neutral-100"
                         />
-                      </div>
-                      <Button 
-                        type="submit" 
-                        className="w-full" 
-                        disabled={isSubmitting}
-                      >
+                      </motion.div>
+                      <motion.div custom={5} variants={formItemAnimation}>
+                        <Button 
+                          type="submit" 
+                          className="w-full relative overflow-hidden group" 
+                          disabled={isSubmitting}
+                        >
+                          <span className="absolute inset-0 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+                          <span className="relative">
                         {isSubmitting ? "Sending..." : "Send Message"}
-                      </Button>
+                          </span>
+                        </Button>
+                      </motion.div>
                     </div>
                   </form>
                 )}
               </CardContent>
-            </Card>
+              </Card>
+            </motion.div>
           </motion.div>
         </div>
       </div>

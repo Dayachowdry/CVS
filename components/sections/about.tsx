@@ -10,7 +10,7 @@ const fadeIn = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6 }
+    transition: { duration: 0.6, ease: "easeOut" }
   }
 };
 
@@ -22,6 +22,26 @@ const staggerContainer = {
       staggerChildren: 0.2
     }
   }
+};
+
+const popIn = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { 
+      type: "spring", 
+      stiffness: 300, 
+      damping: 15,
+      duration: 0.6 
+    }
+  }
+};
+
+const hoverEffect = {
+  scale: 1.05,
+  boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
+  transition: { duration: 0.3, ease: "easeOut" }
 };
 
 const features = [
@@ -85,17 +105,29 @@ export function AboutSection() {
         >
           {features.map((feature, index) => (
             <motion.div key={index} variants={fadeIn}>
-              <Card className="h-full">
-                <CardContent className="p-6">
-                  <div className="mb-4">{feature.icon}</div>
+              <motion.div
+                className="h-full overflow-hidden"
+                whileHover={hoverEffect}
+              >
+                <Card>
+                  <CardContent className="p-6">
+                  <motion.div 
+                    className="mb-4"
+                    initial={{ rotate: 0 }}
+                    whileHover={{ rotate: 15, scale: 1.2 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {feature.icon}
+                  </motion.div>
                   <h4 className="text-lg font-medium mb-2 text-neutral-900 dark:text-neutral-50">
                     {feature.title}
                   </h4>
                   <p className="text-sm text-neutral-600 dark:text-neutral-400">
                     {feature.description}
                   </p>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </motion.div>
             </motion.div>
           ))}
         </motion.div>
