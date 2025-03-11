@@ -83,7 +83,7 @@ export function ContactSection() {
           </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -102,9 +102,9 @@ export function ContactSection() {
             <motion.div variants={staggerContainer} className="space-y-4">
               <motion.div variants={fadeIn}>
                 <Card>
-                  <CardContent className="p-4 flex items-center">
+                  <CardContent className="p-4 flex flex-col sm:flex-row items-start sm:items-center">
                     <Mail className="h-5 w-5 text-blue-500 mr-4" />
-                    <div>
+                    <div className="mt-1 sm:mt-0">
                       <p className="text-sm text-neutral-500 dark:text-neutral-400">Email</p>
                       <a 
                         href="mailto:Dayachowdry@gmail.com" 
@@ -119,9 +119,9 @@ export function ContactSection() {
 
               <motion.div variants={fadeIn}>
                 <Card>
-                  <CardContent className="p-4 flex items-center">
-                    <Phone className="h-5 w-5 text-green-500 mr-4" />
-                    <div>
+                  <CardContent className="p-4 flex flex-col sm:flex-row items-start sm:items-center">
+                    <Phone className="h-5 w-5 text-green-500 mr-4 mb-1 sm:mb-0" />
+                    <div className="mt-1 sm:mt-0">
                       <p className="text-sm text-neutral-500 dark:text-neutral-400">Phone</p>
                       <a 
                         href="tel:+17746417465" 
@@ -136,17 +136,17 @@ export function ContactSection() {
 
               <motion.div variants={fadeIn}>
                 <Card>
-                  <CardContent className="p-4 flex items-center">
-                    <Linkedin className="h-5 w-5 text-blue-600 mr-4" />
-                    <div>
+                  <CardContent className="p-4 flex flex-col sm:flex-row items-start sm:items-center">
+                    <Linkedin className="h-5 w-5 text-blue-600 mr-4 mb-1 sm:mb-0" />
+                    <div className="mt-1 sm:mt-0">
                       <p className="text-sm text-neutral-500 dark:text-neutral-400">LinkedIn</p>
                       <a 
                         href="https://linkedin.com/in/daya-nanda-56a9519b" 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="text-neutral-900 dark:text-neutral-50 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                        className="text-neutral-900 dark:text-neutral-50 hover:text-blue-600 dark:hover:text-blue-400 transition-colors break-all"
                       >
-                        linkedin.com/in/daya-nanda-56a9519b
+                        linkedin.com/in/daya-nanda
                       </a>
                     </div>
                   </CardContent>

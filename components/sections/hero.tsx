@@ -28,13 +28,14 @@ export function HeroSection() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Create particles
+    // Create particles - reduce count on mobile for better performance
     const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 1000;
+    const isMobile = window.innerWidth < 768;
+    const particlesCount = isMobile ? 500 : 1000;
     const posArray = new Float32Array(particlesCount * 3);
 
     for (let i = 0; i < particlesCount * 3; i++) {
-      posArray[i] = (Math.random() - 0.5) * 5;
+      posArray[i] = (Math.random() - 0.5) * (isMobile ? 4 : 5);
     }
 
     particlesGeometry.setAttribute(
@@ -43,7 +44,7 @@ export function HeroSection() {
     );
 
     const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.005,
+      size: isMobile ? 0.007 : 0.005,
       color: new THREE.Color(0x0077ff),
     });
 
@@ -105,7 +106,7 @@ export function HeroSection() {
               AI security, and security operations. Proven ability to lead and support 
               data protection solutions to mitigate risks of data breaches.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Button asChild size="lg">
                 <a href="#contact">Get in Touch</a>
               </Button>

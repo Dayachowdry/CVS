@@ -81,7 +81,7 @@ export function AboutSection() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-12"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12"
         >
           {features.map((feature, index) => (
             <motion.div key={index} variants={fadeIn}>

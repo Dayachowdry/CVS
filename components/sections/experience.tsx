@@ -122,19 +122,19 @@ export function ExperienceSection() {
           className="relative max-w-4xl mx-auto"
         >
           {/* Timeline line */}
-          <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 h-full w-0.5 bg-neutral-200 dark:bg-neutral-700"></div>
+          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 transform md:-translate-x-1/2 w-0.5 bg-neutral-200 dark:bg-neutral-700"></div>
 
           {experiences.map((exp, index) => (
             <motion.div 
               key={index}
               variants={fadeIn}
-              className={`relative mb-12 md:mb-16 ${
+              className={`relative mb-12 md:mb-16 pl-16 md:pl-0 ${
                 index % 2 === 0 ? 'md:pr-12 md:ml-auto md:mr-[50%]' : 'md:pl-12 md:mr-auto md:ml-[50%]'
               }`}
             >
               {/* Timeline dot */}
-              <div className={`absolute top-6 ${
-                index % 2 === 0 ? 'right-0 md:-right-6' : 'left-0 md:-left-6'
+              <div className={`absolute top-6 left-0 md:left-auto ${
+                index % 2 === 0 ? 'md:-right-6' : 'md:-left-6'
               } w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center z-10`}>
                 <Briefcase className="text-white h-6 w-6" />
               </div>

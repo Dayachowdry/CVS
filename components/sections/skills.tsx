@@ -171,13 +171,15 @@ export function SkillsSection() {
           variants={fadeIn}
         >
           <Tabs defaultValue="cybersecurity" className="w-full">
-            <TabsList className="w-full flex flex-wrap justify-center mb-8">
-              {skillCategories.map((category) => (
-                <TabsTrigger key={category.id} value={category.id} className="px-4 py-2 m-1">
-                  {category.name}
-                </TabsTrigger>
-              ))}
-            </TabsList>
+            <div className="overflow-x-auto pb-2 -mx-4 px-4">
+              <TabsList className="w-max flex mb-8 mx-auto">
+                {skillCategories.map((category) => (
+                  <TabsTrigger key={category.id} value={category.id} className="px-4 py-2 whitespace-nowrap">
+                    {category.name}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
             
             {skillCategories.map((category) => (
               <TabsContent key={category.id} value={category.id}>
@@ -187,7 +189,7 @@ export function SkillsSection() {
                       variants={staggerContainer}
                       initial="hidden"
                       animate="visible"
-                      className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                      className="grid grid-cols-1 md:grid-cols-2 gap-8"
                     >
                       {category.skills.map((skill, index) => (
                         <motion.div key={index} variants={fadeIn}>
